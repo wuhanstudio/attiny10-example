@@ -33,9 +33,9 @@ int main(void)
     /* Replace with your application code */
     while (1) 
     {
-		_delay_ms(200);
+		_delay_ms(20);
 		PORTB &= ~(1 << PORTB2);
-		_delay_ms(200);
+		_delay_ms(20);
 		PORTB |= 1 << PORTB2;
 	}
 }
