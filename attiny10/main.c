@@ -17,7 +17,11 @@ char name[] = "wuhanstudio";
 int state;
 int main(void)
 {
+	// Internal 8MHz, prescaler 1
+	CCP    = 0xD8;
 	CLKMSR = 0x00;
+	CCP    = 0xD8;
+	CLKPSR = 0X00;
 	
 	// PB0-2 OUTPUT
 	DDRB = (1<<DDB0) | (1<<DDB1) | (1<<DDB2);
@@ -33,9 +37,9 @@ int main(void)
     /* Replace with your application code */
     while (1) 
     {
-		_delay_ms(20);
+		_delay_ms(1000);
 		PORTB &= ~(1 << PORTB2);
-		_delay_ms(20);
+		_delay_ms(1000);
 		PORTB |= 1 << PORTB2;
 	}
 }
