@@ -6,15 +6,18 @@
  */ 
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #define F_CPU 8000000UL
 #include <util/delay.h>
-#include <avr/interrupt.h>
-//#include <avr/iotn10.h>
+
+// Check ISR here
+// #include <avr/iotn10.h>
+
 char name[] = "wuhanstudio";
 int state;
 int main(void)
 {
-	//name[0] = 'a';
+	CLKMSR = 0x00;
 	
 	// PB0-2 OUTPUT
 	DDRB = (1<<DDB0) | (1<<DDB1) | (1<<DDB2);
@@ -24,18 +27,19 @@ int main(void)
 	// Initialize PWM
 	TCCR0A =  (1 << COM0A1) | (1 << COM0B1) | (1 << COM0B0) | (1 << WGM00);
 	TCCR0B =  (1 << WGM02)  | (1 << CS00);
-	OCR0A  =  76; 
+	OCR0A  =  205;  // Duty 80 
+	OCR0B  =  205;  // Duty 20
 	
     /* Replace with your application code */
     while (1) 
     {
 		_delay_ms(200);
-		PORTB &= ~(1<<PORTB2);
+		PORTB &= ~(1 << PORTB2);
 		_delay_ms(200);
-		PORTB |= 1<<PORTB2;
+		PORTB |= 1 << PORTB2;
 	}
 }
 
-ISR(TIM0_OVF_vect){
+// ISR(TIM0_OVF_vect){
 	
-}
+// }
