@@ -66,7 +66,7 @@ LIBS		   =
 CC			 = avr-gcc
 # Override is only needed by avr-lib build system.
 override CFLAGS		= -g -Wall $(OPTIMIZE) -mmcu=$(MCU_TARGET) $(DEFS)
-override LDFLAGS	   = -Wl,-Map,$(PRG).map
+override LDFLAGS	   = -Wl,-Map,$(OBJDIR)/$(PRG).map
 OBJCOPY		= avr-objcopy
 OBJDUMP		= avr-objdump
 
@@ -120,4 +120,4 @@ clean:
 	rm -rf bin obj
 
 upload:
-	avrdude -p t10 -c usbasp -U flash:w:$(PRG).hex:i
+	avrdude -p t10 -c usbasp -U flash:w:$(OUTDIR)/$(PRG).hex:i
