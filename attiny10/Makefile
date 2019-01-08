@@ -58,7 +58,7 @@ OUTDIR=bin
 #MCU_TARGET	 = attiny861
 MCU_TARGET	 = attiny10
 
-OPTIMIZE	   = -O2
+OPTIMIZE	   = -Os -ffunction-sections -fdata-sections -MMD -flto -fno-fat-lto-objects
 DEFS		   =
 LIBS		   =
 
@@ -66,11 +66,11 @@ LIBS		   =
 CC			 = avr-gcc
 # Override is only needed by avr-lib build system.
 override CFLAGS		= -g -Wall $(OPTIMIZE) -mmcu=$(MCU_TARGET) $(DEFS)
-override LDFLAGS	   = -Wl,-Map,$(OBJDIR)/$(PRG).map
+override LDFLAGS	= -Wl,-Map,$(OBJDIR)/$(PRG).map
 OBJCOPY		= avr-objcopy
 OBJDUMP		= avr-objdump
 
-all: directories $(OBJDIR)/$(PRG).elf lst text eeprom
+all: directories $(OBJDIR)/$(PRG).elf lst text eeprom usage
 
 directories:
 	@mkdir -p $(OBJDIR)
@@ -115,6 +115,11 @@ $(OBJDIR)/%_eeprom.srec: $(OBJDIR)/%.elf
 
 $(OUTDIR)/%_eeprom.bin: $(OBJDIR)/%.elf
 	$(OBJCOPY) -j .eeprom --change-section-lma .eeprom=0 -O binary $< $@ || { echo empty $@ not generated; exit 0; }
+
+usage:
+	@echo
+	@echo ----------------
+	@avr-size -C -x $(OBJDIR)/$(PRG).elf
 
 clean:
 	rm -rf bin obj

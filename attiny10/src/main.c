@@ -13,7 +13,7 @@
 // #include <avr/iotn10.h>
 
 /* -Choose Examples Here- */
-// #define LED_EXAMPLE
+//#define LED_EXAMPLE
 #define PWM_EXAMPLE
 // #define ADC_EXAMPLE
 /* --------------------- */
