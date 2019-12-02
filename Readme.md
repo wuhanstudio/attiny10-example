@@ -32,4 +32,4 @@ Or you may find precompiled avrdude in **Arduino**:
 
 Author：Wu Han  
 Homepage：http://wuhanstudio.cc  
-Email：wuhanstudio@hust.edu.cn  
+Contact：https://github.com/wuhanstudio/attiny10-example/issues
